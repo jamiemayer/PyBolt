@@ -1,29 +1,39 @@
-# README #
+# PyBolt Client
 
-This README would normally document whatever steps are necessary to get your application up and running.
+----
 
-### What is this repository for? ###
+Small lightweight library intended to be used for getting and decrypting passwords from a passbolt server.
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+## Installation
 
-### How do I get set up? ###
+To install from PyPi:
+```shell
+pip install pybolt_client
+```
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+## Usage
 
-### Contribution guidelines ###
+The library uses one class names `Client`.
 
-* Writing tests
-* Code review
-* Other guidelines
+**Positional Arguments**
 
-### Who do I talk to? ###
+* `url` - The url of the passbolt server you wish to connect to.
 
-* Repo owner or admin
-* Other community or team contact
+**Keyword Arguments**
+
+* `gpg_path` - The path to the users gpg home directory. This will default to `~/.gnupg/`.
+* `private_key_path` - The path the the users private GPG key. Defaults to `~/.gnupg/private.key`.
+### Retrieving a password.
+Password retrieval is relatively simple. First we need to instantiate an instance of `Client` and then 
+call the `get_password_by_name` method, passing it the name of the password as set in passbolt. 
+
+Example:
+
+```python
+from passbolt_client import Client
+
+client = Client("https://passbolt.example.com")
+
+print(client.get_password_by_name("Rees-Mogg's Onlyfans"))
+
+```

@@ -40,5 +40,5 @@ extend-ignore=
     G201
     # Logging statement using exception in args.
     G200
-    # Bare Exception. TODO: Remove this when this urgent fix has been deployed.
-    E722
+
+exclude = ./build/*

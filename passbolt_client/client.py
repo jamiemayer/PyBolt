@@ -13,13 +13,18 @@ class Client:
     Client for making Passbolt API requests.
     """
 
-    def __init__(self, url: str, private_key_path: str = "~/.gnupg/private.key"):
+    def __init__(
+        self,
+        url: str,
+        gpg_path: str = "~/.gnupg/",
+        private_key_path: str = "~/.gnupg/private.key",
+    ):
         self.private_key_path = private_key_path
         self.base_url = url
         self.server_pub_key, self.server_finger_print = self.get_server_details()
-        self.session: GPGAuthSession = self._create_session()
+        self.session: GPGAuthSession = self._create_session(key_path=gpg_path)
 
-    def _create_session(self, key_path: str = "~/.gnupg") -> GPGAuthSession:
+    def _create_session(self, key_path: str) -> GPGAuthSession:
         """
         Initialise a GPG Auth Session.
         """
