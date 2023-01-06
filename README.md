@@ -8,7 +8,7 @@ Small lightweight library intended to be used for getting and decrypting passwor
 
 To install from PyPi:
 ```shell
-pip install pybolt_client
+pip install pybolt-client
 ```
 
 ## Usage
