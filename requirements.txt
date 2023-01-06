@@ -1,0 +1,3 @@
+requests >=2,<3
+requests_gpgauthlib == 0.1.2
+PGPy >=0.6.0, <0.7.0
