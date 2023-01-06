@@ -1,15 +1,11 @@
 import json
 import os.path
-import secrets
 import uuid
 
-import pgpy
 import requests
 from gnupg import GPG
-from pgpy import PGPKey, PGPMessage
 from requests_gpgauthlib.gpgauth_session import GPGAuthSession
-from requests_gpgauthlib.utils import create_gpg, get_workdir, \
-    import_user_private_key_from_file
+from requests_gpgauthlib.utils import import_user_private_key_from_file
 
 
 class Client:
@@ -27,7 +23,6 @@ class Client:
         """
         Initialise a GPG Auth Session.
         """
-
         gpg = GPG(gnupghome=os.path.expanduser(key_path))
         import_user_private_key_from_file(
             gpg, os.path.expanduser(self.private_key_path)
@@ -70,7 +65,7 @@ class Client:
         endpoint = "auth/verify.json"
         response = self.get(endpoint).json()
         response_body = response.get("body")
-        server_pub_key = response_body.get('keydata')
+        server_pub_key = response_body.get("keydata")
         server_finger_print = response_body.get("fingerprint")
         return server_pub_key, server_finger_print
 
@@ -81,8 +76,8 @@ class Client:
         all_resources = self.get_all_resources().json().get("body")
         resource_id = ""
         for resource in all_resources:
-            if resource.get('name') == name:
-                resource_id = resource.get('id')
+            if resource.get("name") == name:
+                resource_id = resource.get("id")
                 break
         else:
             return
@@ -103,12 +98,10 @@ class Client:
 
         response = self.session.get(uri)
 
-        encrypted = response.json().get('body').get('data')
+        encrypted = response.json().get("body").get("data")
 
         decrypted = self.session.gpg.decrypt(encrypted, always_trust=True)
 
         loaded = json.loads(decrypted.data.decode())
 
         return loaded.get("password")
-
-
